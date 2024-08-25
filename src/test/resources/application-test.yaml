@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: product-pricing-service
+  jpa:
+    hibernate:
+      ddl-auto: create
