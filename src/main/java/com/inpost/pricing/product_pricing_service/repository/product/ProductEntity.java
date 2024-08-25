@@ -1,4 +1,4 @@
-package com.inpost.pricing.product_pricing_service.repository;
+package com.inpost.pricing.product_pricing_service.repository.product;
 
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;

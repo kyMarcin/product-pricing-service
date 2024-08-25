@@ -1,7 +1,7 @@
-package com.inpost.pricing.product_pricing_service.service;
+package com.inpost.pricing.product_pricing_service.service.product;
 
-import com.inpost.pricing.product_pricing_service.repository.ProductEntity;
-import com.inpost.pricing.product_pricing_service.repository.ProductJpaRepository;
+import com.inpost.pricing.product_pricing_service.repository.product.ProductEntity;
+import com.inpost.pricing.product_pricing_service.repository.product.ProductJpaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

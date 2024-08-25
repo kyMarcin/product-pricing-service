@@ -1,10 +1,10 @@
-package com.inpost.pricing.product_pricing_service.api;
+package com.inpost.pricing.product_pricing_service.api.product;
 
-import com.inpost.pricing.product_pricing_service.api.dto.CreateProductRequest;
-import com.inpost.pricing.product_pricing_service.api.dto.ProductResponse;
-import com.inpost.pricing.product_pricing_service.service.CreateProduct;
-import com.inpost.pricing.product_pricing_service.service.Product;
-import com.inpost.pricing.product_pricing_service.service.ProductService;
+import com.inpost.pricing.product_pricing_service.api.product.dto.CreateProductRequest;
+import com.inpost.pricing.product_pricing_service.api.product.dto.ProductResponse;
+import com.inpost.pricing.product_pricing_service.service.product.CreateProduct;
+import com.inpost.pricing.product_pricing_service.service.product.Product;
+import com.inpost.pricing.product_pricing_service.service.product.ProductService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

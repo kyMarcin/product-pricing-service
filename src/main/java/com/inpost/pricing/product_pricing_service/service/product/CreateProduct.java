@@ -1,4 +1,4 @@
-package com.inpost.pricing.product_pricing_service.service;
+package com.inpost.pricing.product_pricing_service.service.product;
 
 import java.math.BigDecimal;
 
