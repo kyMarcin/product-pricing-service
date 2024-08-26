@@ -38,4 +38,11 @@ public class DiscountPolicyEndpoint {
     public void delete(@PathVariable String id) {
         service.delete(id);
     }
+
+    @GetMapping(path = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public DiscountPolicyResponse get(@PathVariable String id) {
+        DiscountPolicy discountPolicy = service.get(id);
+        return mapper.map(discountPolicy);
+    }
 }

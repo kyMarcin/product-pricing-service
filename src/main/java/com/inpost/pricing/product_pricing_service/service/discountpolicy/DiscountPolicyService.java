@@ -25,9 +25,7 @@ public class DiscountPolicyService {
     }
 
     public DiscountPolicy update(String id, DiscountPolicyCommand discountPolicyCommand) {
-        UUID uuid = UUID.fromString(id);
-        DiscountPolicyEntity discountPolicy = repository.findById(uuid)
-                .orElseThrow(DiscountPolicyNotFoundException::new);
+        DiscountPolicyEntity discountPolicy = getDiscountPolicyEntity(id);
 
         discountPolicy.setUnitThreshold(discountPolicyCommand.getUnitThreshold());
         switch (discountPolicyCommand) {
@@ -40,14 +38,25 @@ public class DiscountPolicyService {
         return map(repository.save(discountPolicy));
     }
 
+    public void delete(String id) {
+        repository.deleteById(UUID.fromString(id));
+    }
+
+    public DiscountPolicy get(String id) {
+        return map(getDiscountPolicyEntity(id));
+    }
+
+    private DiscountPolicyEntity getDiscountPolicyEntity(String id) {
+        UUID uuid = UUID.fromString(id);
+        return repository.findById(uuid)
+                .orElseThrow(DiscountPolicyNotFoundException::new);
+    }
+
+
     private static DiscountPolicy map(DiscountPolicyEntity savedDiscountPolicyEntity) {
         return new DiscountPolicy(savedDiscountPolicyEntity.getId().toString(),
                 savedDiscountPolicyEntity.getUnitThreshold(),
                 savedDiscountPolicyEntity.getAbsoluteDiscount(),
                 savedDiscountPolicyEntity.getPercentageDiscount());
-    }
-
-    public void delete(String id) {
-        repository.deleteById(UUID.fromString(id));
     }
 }

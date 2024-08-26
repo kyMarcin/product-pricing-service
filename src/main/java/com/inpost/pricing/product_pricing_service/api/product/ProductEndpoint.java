@@ -22,7 +22,7 @@ public class ProductEndpoint {
     @ResponseStatus(HttpStatus.CREATED)
     public ProductResponse createProduct(@Valid @RequestBody CreateProductRequest request) {
         CreateProduct createProduct = productMapper.map(request);
-        Product product = productService.createProduct(createProduct);
+        Product product = productService.create(createProduct);
         return productMapper.map(product);
     }
 }

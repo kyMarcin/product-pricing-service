@@ -90,6 +90,21 @@ class DiscountPolicyEndpointIntegrationTests extends AbstractIntegrationTest {
     }
 
     @Test
+    void shouldReturnDiscountPolicyById() {
+        // when
+        var response = restTemplate.getForEntity("/api/discount-policy/a8098c1a-f86e-11da-bd1a-00112444be1e", DiscountPolicyResponse.class);
+
+        // then
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().id()).isNotEmpty();
+        assertThat(response.getBody().percentageDiscount()).isEqualTo(15);
+        assertThat(response.getBody().absoluteDiscount()).isNull();
+        assertThat(response.getBody().unitThreshold()).isEqualTo(20);
+        assertThat(response.getBody().type()).isEqualTo(DiscountPolicyResponse.DiscountPolicyType.percentage);
+    }
+
+    @Test
     void shouldRemovePolicyWhenDeleteRequestIsPerformed() {
         // when
         restTemplate.delete("/api/discount-policy/550e8400-e29b-41d4-a716-446655440000");
