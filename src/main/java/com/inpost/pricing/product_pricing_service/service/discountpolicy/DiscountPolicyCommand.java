@@ -5,6 +5,6 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public sealed abstract class CreateDiscountPolicy permits CreateAbsoluteDiscountPolicy, CreatePercentageDiscountPolicy {
+public sealed abstract class DiscountPolicyCommand permits AbsoluteDiscountPolicyCommand, PercentageDiscountPolicyCommand {
     private final Integer unitThreshold;
 }

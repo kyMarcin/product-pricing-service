@@ -8,10 +8,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.context.annotation.Import;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.test.context.ActiveProfiles;
 
 @Import(TestcontainersConfiguration.class)
@@ -28,15 +25,25 @@ abstract class AbstractIntegrationTest {
 
     protected <T> ResponseEntity<T> postForEntity(String url, Object request, Class<T> responseType,
                                                   Object... urlVariables) {
+        HttpEntity<String> entity = createHttpEntity(request);
+        return restTemplate.postForEntity(url, entity, responseType, urlVariables);
+    }
 
+    protected <T> ResponseEntity<T> putForEntity(String url, Object request, Class<T> responseType,
+                                                 Object... urlVariables) {
+        HttpEntity<String> entity = createHttpEntity(request);
+        return restTemplate.exchange(url, HttpMethod.PUT, entity, responseType, urlVariables);
+    }
+
+
+    private HttpEntity<String> createHttpEntity(Object request) {
         try {
             String requestBody = objectMapper.writeValueAsString(request);
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
 
-            HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);
-            return restTemplate.postForEntity(url, entity, responseType, urlVariables);
+            return new HttpEntity<>(requestBody, headers);
         } catch (JsonProcessingException e) {
             throw new IllegalArgumentException("Object is not processable", e);
         }

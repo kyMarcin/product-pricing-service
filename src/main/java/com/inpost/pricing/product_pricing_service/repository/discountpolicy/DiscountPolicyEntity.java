@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.math.BigDecimal;
@@ -23,6 +24,7 @@ public class DiscountPolicyEntity {
     private UUID id;
 
     @Column(nullable = false)
+    @Setter
     private Integer unitThreshold;
 
     @Column
@@ -39,5 +41,15 @@ public class DiscountPolicyEntity {
     public DiscountPolicyEntity(Integer unitThreshold, Integer percentageDiscount) {
         this.unitThreshold = unitThreshold;
         this.percentageDiscount = percentageDiscount;
+    }
+
+    public void setAbsoluteDiscount(BigDecimal absoluteDiscount) {
+        this.absoluteDiscount = absoluteDiscount;
+        this.percentageDiscount = null;
+    }
+
+    public void setPercentageDiscount(Integer percentageDiscount) {
+        this.percentageDiscount = percentageDiscount;
+        this.absoluteDiscount = null;
     }
 }

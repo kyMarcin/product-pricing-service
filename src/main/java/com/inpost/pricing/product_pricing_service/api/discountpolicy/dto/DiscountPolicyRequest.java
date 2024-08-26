@@ -14,10 +14,10 @@ import lombok.Getter;
         property = "type"
 )
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = CreateAbsoluteDiscountPolicyRequest.class, name = "absolute"),
-        @JsonSubTypes.Type(value = CreatePercentageDiscountPolicyRequest.class, name = "percentage")
+        @JsonSubTypes.Type(value = AbsoluteDiscountPolicyRequest.class, name = "absolute"),
+        @JsonSubTypes.Type(value = PercentageDiscountPolicyRequest.class, name = "percentage")
 })
-public sealed abstract class CreateDiscountPolicyRequest permits CreateAbsoluteDiscountPolicyRequest, CreatePercentageDiscountPolicyRequest {
+public sealed abstract class DiscountPolicyRequest permits AbsoluteDiscountPolicyRequest, PercentageDiscountPolicyRequest {
 
     @NotNull
     @Min(1)

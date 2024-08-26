@@ -6,10 +6,10 @@ import java.math.BigDecimal;
 
 
 @Getter
-public final class CreateAbsoluteDiscountPolicy extends CreateDiscountPolicy {
+public final class AbsoluteDiscountPolicyCommand extends DiscountPolicyCommand {
     private final BigDecimal absoluteDiscount;
 
-    public CreateAbsoluteDiscountPolicy(Integer unitThreshold, BigDecimal absoluteDiscount) {
+    public AbsoluteDiscountPolicyCommand(Integer unitThreshold, BigDecimal absoluteDiscount) {
         super(unitThreshold);
         this.absoluteDiscount = absoluteDiscount;
     }

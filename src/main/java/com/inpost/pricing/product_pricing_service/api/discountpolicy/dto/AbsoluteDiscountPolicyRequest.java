@@ -7,14 +7,14 @@ import lombok.Getter;
 import java.math.BigDecimal;
 
 @Getter
-public final class CreateAbsoluteDiscountPolicyRequest extends CreateDiscountPolicyRequest {
+public final class AbsoluteDiscountPolicyRequest extends DiscountPolicyRequest {
 
 
     @NotNull
     @DecimalMin(value = "0.01")
     private final BigDecimal absoluteDiscount;
 
-    public CreateAbsoluteDiscountPolicyRequest(
+    public AbsoluteDiscountPolicyRequest(
             Integer unitThreshold,
             BigDecimal absoluteDiscount) {
         super(unitThreshold);

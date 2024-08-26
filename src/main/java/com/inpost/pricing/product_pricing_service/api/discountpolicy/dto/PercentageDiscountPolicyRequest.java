@@ -6,14 +6,14 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 @Getter
-public final class CreatePercentageDiscountPolicyRequest extends CreateDiscountPolicyRequest {
+public final class PercentageDiscountPolicyRequest extends DiscountPolicyRequest {
 
 
     @NotNull
     @Min(1) @Max(100)
     private final Integer percentageDiscount;
 
-    public CreatePercentageDiscountPolicyRequest(
+    public PercentageDiscountPolicyRequest(
             Integer unitThreshold,
             Integer percentageDiscount) {
         super(unitThreshold);

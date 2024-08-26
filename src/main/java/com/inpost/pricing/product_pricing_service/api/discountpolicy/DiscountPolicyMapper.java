@@ -1,13 +1,13 @@
 package com.inpost.pricing.product_pricing_service.api.discountpolicy;
 
-import com.inpost.pricing.product_pricing_service.api.discountpolicy.dto.CreateAbsoluteDiscountPolicyRequest;
-import com.inpost.pricing.product_pricing_service.api.discountpolicy.dto.CreateDiscountPolicyRequest;
-import com.inpost.pricing.product_pricing_service.api.discountpolicy.dto.CreatePercentageDiscountPolicyRequest;
+import com.inpost.pricing.product_pricing_service.api.discountpolicy.dto.AbsoluteDiscountPolicyRequest;
+import com.inpost.pricing.product_pricing_service.api.discountpolicy.dto.DiscountPolicyRequest;
 import com.inpost.pricing.product_pricing_service.api.discountpolicy.dto.DiscountPolicyResponse;
-import com.inpost.pricing.product_pricing_service.service.discountpolicy.CreateAbsoluteDiscountPolicy;
-import com.inpost.pricing.product_pricing_service.service.discountpolicy.CreateDiscountPolicy;
-import com.inpost.pricing.product_pricing_service.service.discountpolicy.CreatePercentageDiscountPolicy;
+import com.inpost.pricing.product_pricing_service.api.discountpolicy.dto.PercentageDiscountPolicyRequest;
+import com.inpost.pricing.product_pricing_service.service.discountpolicy.AbsoluteDiscountPolicyCommand;
 import com.inpost.pricing.product_pricing_service.service.discountpolicy.DiscountPolicy;
+import com.inpost.pricing.product_pricing_service.service.discountpolicy.DiscountPolicyCommand;
+import com.inpost.pricing.product_pricing_service.service.discountpolicy.PercentageDiscountPolicyCommand;
 import org.springframework.stereotype.Component;
 
 import static com.inpost.pricing.product_pricing_service.api.discountpolicy.dto.DiscountPolicyResponse.DiscountPolicyType.absolute;
@@ -16,12 +16,12 @@ import static com.inpost.pricing.product_pricing_service.api.discountpolicy.dto.
 @Component
 public class DiscountPolicyMapper {
 
-    public CreateDiscountPolicy map(CreateDiscountPolicyRequest request) {
+    public DiscountPolicyCommand map(DiscountPolicyRequest request) {
         return switch (request) {
-            case CreateAbsoluteDiscountPolicyRequest d ->
-                    new CreateAbsoluteDiscountPolicy(d.getUnitThreshold(), d.getAbsoluteDiscount());
-            case CreatePercentageDiscountPolicyRequest d ->
-                    new CreatePercentageDiscountPolicy(d.getUnitThreshold(), d.getPercentageDiscount());
+            case AbsoluteDiscountPolicyRequest d ->
+                    new AbsoluteDiscountPolicyCommand(d.getUnitThreshold(), d.getAbsoluteDiscount());
+            case PercentageDiscountPolicyRequest d ->
+                    new PercentageDiscountPolicyCommand(d.getUnitThreshold(), d.getPercentageDiscount());
         };
     }
 

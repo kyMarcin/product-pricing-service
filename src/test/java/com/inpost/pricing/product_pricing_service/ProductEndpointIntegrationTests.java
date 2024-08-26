@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -30,7 +31,9 @@ class ProductEndpointIntegrationTests extends AbstractIntegrationTest {
         // then
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(response.getBody()).isNotNull();
-        assertThat(response.getBody().id()).isNotEmpty();
+        String productId = response.getBody().id();
+        assertThat(productId).isNotEmpty();
+        assertThat(repository.existsById(UUID.fromString(productId))).isTrue();
         assertThat(response.getBody().name()).isEqualTo("first product");
         assertThat(response.getBody().price()).isEqualTo(BigDecimal.TEN);
     }
