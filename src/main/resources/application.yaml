@@ -1,3 +1,9 @@
 spring:
   application:
     name: product-pricing-service
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics
