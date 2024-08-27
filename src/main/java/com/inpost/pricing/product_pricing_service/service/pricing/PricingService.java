@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -17,11 +18,23 @@ public class PricingService {
     private final DiscountPolicyService discountPolicyService;
 
     public BigDecimal calculateTotalPrice(String productId, String discountPolicyId, Integer amount) {
-        Product product = productService.get(productId);
-        DiscountPolicy discountPolicy = discountPolicyService.get(discountPolicyId);
-        validateThreshold(amount, discountPolicy);
 
-        return discountPolicy.calculateTotalPrice(product.price(), amount);
+        Product product = productService.get(productId);
+
+        BigDecimal totalPrice = Optional.ofNullable(discountPolicyId).map(dpi -> {
+            DiscountPolicy discountPolicy = discountPolicyService.get(discountPolicyId);
+            validateThreshold(amount, discountPolicy);
+            return discountPolicy.calculateTotalPrice(product.price(), amount);
+        }).orElseGet(() -> product.price().multiply(BigDecimal.valueOf(amount)));
+
+        validateIfPositive(totalPrice);
+        return totalPrice;
+    }
+
+    private static void validateIfPositive(BigDecimal totalPrice) {
+        if(totalPrice.signum() <= 0) {
+            throw new TotalPriceBelowZeroException();
+        }
     }
 
     private static void validateThreshold(Integer amount, DiscountPolicy discountPolicy) {

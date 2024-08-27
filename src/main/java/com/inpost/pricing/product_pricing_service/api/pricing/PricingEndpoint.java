@@ -18,7 +18,7 @@ public class PricingEndpoint {
     @ResponseStatus(HttpStatus.OK)
     public TotalPriceResponse getTotalPrice(
             @PathVariable String productId,
-            @RequestParam String discountPolicyId,
+            @RequestParam(required = false) String discountPolicyId,
             @RequestParam Integer amount) {
 
         BigDecimal totalPrice = service.calculateTotalPrice(productId, discountPolicyId, amount);
